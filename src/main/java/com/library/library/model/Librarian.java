@@ -1,22 +1,38 @@
 package com.library.library.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
+@Table(name = "Librarian")
 public class Librarian {
 
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String userId;
     private String name;
+    private String email;
     private String password;
-    private String createdAt;
-    private String updatedAt;
+    @CreationTimestamp
+    @Column(name = "cretaed_at")
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
     public Librarian() {
         this.userId = "userId";
-        this.createdAt = "createdAt";
-        this.updatedAt = "updatedAt";
+
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getName() {
@@ -27,6 +43,18 @@ public class Librarian {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -35,11 +63,29 @@ public class Librarian {
         this.password = password;
     }
 
-    public String getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(String updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    @Override
+    public String toString() {
+        return "Librarian{" +
+                "userId='" + userId + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }
+
+//    @GeneratedValue(generator = "UUID")
+//    @GenericGenerator(
+//            name = "UUID",
+//            strategy = "org.hibernate.id.UUIDGenerator"
+//    )
