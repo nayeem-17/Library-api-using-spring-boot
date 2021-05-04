@@ -11,19 +11,20 @@ import java.util.Date;
 @Table(name = "Librarian")
 public class Librarian {
 
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String userId;
     private String name;
     private String email;
     private String password;
+
     @CreationTimestamp
     @Column(name = "cretaed_at")
     private Date createdAt;
 
     @UpdateTimestamp
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
 
     public Librarian() {
@@ -37,6 +38,10 @@ public class Librarian {
 
     public String getName() {
         return name;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public void setName(String name) {
@@ -73,19 +78,7 @@ public class Librarian {
 
     @Override
     public String toString() {
-        return "Librarian{" +
-                "userId='" + userId + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
+        return "Librarian{" + "userId='" + userId + '\'' + ", name='" + name + '\'' + ", email='" + email + '\''
+                + ", password='" + password + '\'' + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + '}';
     }
 }
-
-//    @GeneratedValue(generator = "UUID")
-//    @GenericGenerator(
-//            name = "UUID",
-//            strategy = "org.hibernate.id.UUIDGenerator"
-//    )

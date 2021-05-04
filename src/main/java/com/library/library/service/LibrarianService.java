@@ -17,7 +17,10 @@ public class LibrarianService {
     }
 
     public Librarian update(Librarian librarian) {
-        return repository.save(librarian);
+        Librarian prevData = repository.findById(librarian.getUserId()).get();
+        librarian.setCreatedAt(prevData.getCreatedAt());
+        Librarian updatedData = repository.save(librarian);
+        return updatedData;
     }
 
     public Librarian create(Librarian librarian) {
@@ -25,8 +28,6 @@ public class LibrarianService {
     }
 
     public Librarian findByName(String id) {
-        Librarian li = repository.findByName(id);
-        System.out.println(li);
-        return li;
+        return repository.findByName(id);
     }
 }
